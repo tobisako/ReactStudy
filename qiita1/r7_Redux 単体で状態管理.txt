@@ -1,0 +1,119 @@
+https://qiita.com/TsutomuNakamura/items/2ded5112ca5ded70e573
+今から始めるReact入門 〜 Redux 編: Redux 単体で状態管理をしっかり理解する
+
+
+Redux の動きを確認する
+  次は簡単なReact + Redux のアプリケーションを作成する前に
+  Redux 単体の動きを見てみましょう。
+
+npm install --save-dev @babel/core @babel/preset-env @babel/preset-react babel-loader babel-plugin-react-html-attrs webpack webpack-cli webpack-dev-server
+npm install --save-dev redux
+
+
+
+Redux のHello World
+
+
+dispatch メソッドの作成
+  Store が変更された時に呼ばれるsubscribe メソッドと
+  Store にAction を送信するdispatch メソッドを追加します。
+
+  dispatch するところでも同様にReducer が呼ばれます。
+
+
+
+Action
+
+
+Redux のいったんまとめ
+
+Redux の基本的な流れをまとめると...
+
+  * reducer を作成する
+  * store を作成する
+  * action をdispatch する
+  * 単一のreducer もしくは複数のreducer が単一のstore に対して処理を行う
+
+となります。
+
+
+
+複数のReducer
+  tweets をするアプリケーション
+
+
+  //state.name = action.payload;
+  state = {...state, name: action.payload}
+
+
+
+middleware
+
+  Redux を使っているとreducer を呼ぶ前に処理を幾つか追加したいことがあります。
+  たとえばREST API で動いているバックエンドから、
+  reducer で処理するためのJSON データを取得してきたり、
+  reducer の処理に入る前後にログを出力したりといった処理です。
+
+  そのような要望がある場合はRedux のmiddleware を使いましょう。
+
+
+next()が呼ばれた時の処理の流れ：
+   middleware01 | -- next() --> | reducer
+
+    next()関数を呼び出す事で、reducerが呼び出される。
+
+
+複数のmiddleware
+
+  next()が呼ばれた時の処理の流れ(複数middleware):
+     middleware01 | -- next() --> | middleware02 | -- next() --> ... --> | middlewareN  | -- next() --> | reducer
+
+
+非同期アプリケーション
+  middleware に非同期処理を入れることもできます。
+
+  $ npm install --save-dev redux-logger
+
+前回までdispatcher はデータをdispatch していましたが、今回は関数をdispatch します。
+
+
+redux-thunk を使う
+
+  redux-thunk はRedux のmiddleware で、
+  Action オブジェクトの代わりに関数を返す処理を呼び出すことができるようにするためのミドルウェアです。
+
+npm install --save-prod redux-thunk
+
+
+◆axios
+
+今回はHTTP client として動作するaxios を利用して非同期なHTTP リクエストをさばいてみましょう。
+
+$ npm install --save-dev axios
+
+
+※ダミーサーバー：GETを受け取ると１秒後にレスポンスを返すダミー。
+
+このようにして、実際のアプリケーション開発では時間のかかる非同期処理に対して
+"FETCH_USER_START" (処理中) と"RECEIVE_USERS" (処理完了) の2 つのAction を用いることにより、
+処理完了までプログレスバーやspinner を表示させるといった機能も実装することができるようになります。
+
+
+
+redux-promise を使ってみる
+
+  npm install --save-dev redux-promise-middleware
+
+
+redux-saga を使う(概要のみ)
+
+  redux-thunk はReduxJS 組織によって開発されていますが、
+  それとは別に近頃話題になってきているredux-saga を使って非同期処理を実装する方法もあります。
+
+  npm install --save-dev redux-saga
+
+  ※サンプル、うまく動かず。残念。
+
+  
+
+

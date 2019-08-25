@@ -1,0 +1,93 @@
+今から始めるReact入門 〜 React の基本
+https://qiita.com/TsutomuNakamura/items/72d8cf9f07a5a30be048
+
+npx create-react-app my-app
+cd my-app
+npm start
+
+npm install -g webpack webpack-cli
+
+npm install --save-dev webpack webpack-cli webpack-dev-server
+npm install --save-dev @babel/core @babel/preset-env @babel/preset-react babel-loader
+npm install --save-dev react react-dom
+
+
+◆便利：
+node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --content-base src --mode development
+	※これで、デバッグらくちん。minを自動更新してくれる。
+
+
+npm スクリプトにwebpack-dev-server 起動コマンドを登録
+https://qiita.com/TsutomuNakamura/items/72d8cf9f07a5a30be048#npm-%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88%E3%81%ABwebpack-dev-server-%E8%B5%B7%E5%8B%95%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%82%92%E7%99%BB%E9%8C%B2
+
+npm start
+
+
+JSX について
+これはwebpack コマンド実行時に内部的にbabel が呼ばれて、
+以下のように変換されることにより一般的なWeb ブラウザでも解釈できるJavaScript 構文へと変換されているからです。
+
+
+
+複数コンポーネントを記載する場合の注意点
+
+divでラップしようね。複数なら。
+
+
+変数の取扱について
+
+
+
+React のコンポーネント化
+https://qiita.com/TsutomuNakamura/items/72d8cf9f07a5a30be048#react-%E3%81%AE%E3%82%B3%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%8D%E3%83%B3%E3%83%88%E5%8C%96
+
+import Layout from "./components/Layout";
+  つまり  Layout  というキーワードが大切。
+
+
+  Header, Footer コンポーネントの作成
+Header コンポーネントの作成
+
+
+
+React のstate とライフサクル
+  React はstate という状態データを持ちます。
+
+このようにReact はフロントエンドのjavascript の中でもコストの高いdom の描写においても必要部分のみ更新するので、
+細かい処理を記述しなくとも効率の良いレンダリング処理を実装することができるのです。
+
+
+state とprops の組み合わせ
+
+
+Event とデータ変更について
+input の内容を取得する処理の追加
+
+  上記のchangeTitle 関数のthis.setState({title}); という書き方はES6 の書き方で、
+  this.setState({title: title}); と同じ意味になります。
+    this.setState({title});
+    this.setState({title: title});
+
+  また、<Header changeTitle={this.changeTitle.bind(this)} ...> として
+  メソッドをprops でHeader コンポーネントに渡すことで、
+  Header.js 内でLayout.js のchangeTitle(title) メソッドを呼び出すことができるようになります。
+
+
+補足: Layout コンポーネントのbind(this) という記述について
+補足: public class fields syntax によるbind の記載の省略
+https://qiita.com/TsutomuNakamura/items/72d8cf9f07a5a30be048#%E8%A3%9C%E8%B6%B3-public-class-fields-syntax-%E3%81%AB%E3%82%88%E3%82%8Bbind-%E3%81%AE%E8%A8%98%E8%BC%89%E3%81%AE%E7%9C%81%E7%95%A5
+  bind大切。スコープ。
+
+
+補足: arrow function によるbind の記載の省略
+  <Header changeTitle={(e) => this.handleClick(e)} title={this.state.title} />
+    この表記は避けるべき。
+      よびだされる毎に、無名関数が毎回作成される。
+
+
+
+
+
+
+
+

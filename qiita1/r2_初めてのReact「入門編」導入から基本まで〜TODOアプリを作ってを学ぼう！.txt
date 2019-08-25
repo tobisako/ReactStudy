@@ -1,0 +1,38 @@
+
+https://webkikaku.co.jp/blog/javascript/react-start/
+
+
+//HTML と JavaScript が渾然一体となっているのが React の特徴の一つです。
+
+記述量が少なければ普通の JavaScript で記述してもわかるのですが
+記述量が多くなってくると HTML を JavaScript で表現するのは難しくなってきます。
+そのため HTML の様に直感的に記述できる JSX 記法が提供されています。
+
+
+JSXを理解しよう
+class ではなく、className
+
+
+HTML タグに変数や数字、boolean を代入するときは {} で括る
+
+props は外部から注入される変数です。
+
+
+state はそのコンポーネントが内部的に持っている状態のことです。
+
+ライフサイクルを理解しよう
+
+
+コンポーネント更新時
+
+	内部の state が変更された時、
+	もしくは親コンポーネントから新しい props が渡ってきた際に
+
+		コンポーネントの一連の更新処理がされます。
+
+
+
+
+
+
+

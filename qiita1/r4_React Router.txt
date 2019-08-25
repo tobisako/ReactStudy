@@ -1,0 +1,41 @@
+https://qiita.com/TsutomuNakamura/items/34a7339a05bb5fd697f2
+今から始めるReact入門 〜 React Router
+
+Single Page Application (SPA)について
+
+npm install --save-dev @babel/core @babel/preset-env @babel/preset-react babel-loader webpack webpack-cli webpack-dev-server react react-dom react-router react-router-dom
+
+
+React Router の導入
+
+npm install --save-dev react-router react-router-dom
+$ # react-router v4 からはreact-router-dom も必要になります
+
+
+実際、JSX ではclass では無く、className を使ってHTML のclass 属性を表すようになっています。
+
+
+◆babel-plugin-react-html-attrsインストール
+
+npm install --save-dev babel-plugin-react-html-attrs
+
+
+
+navigate
+React Router では普通に使っている状態で、各ボタンを押下してPath が変わった時に、
+表示されていた状態がブラウザの履歴にも蓄積されるようになります。
+そのため、何かボタンを押下してからブラウザの戻るボタンを押下すると一つ前の状態に戻ることが確認できます。
+
+
+次はthis.props.history.replace() を使って履歴に残らない遷移を実装してみましょう。
+
+  このようにボタンをクリックした時に、
+  ブラウザの履歴に残したくない場合はthis.props.history.replace("/"); を使用するようにしましょう。
+
+
+
+URL のパラメータ取得
+
+  ※ここは一旦保留。使わないので。
+  
+

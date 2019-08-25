@@ -1,0 +1,75 @@
+今から始めるReact入門 〜 Redux 編 immutability とは
+https://qiita.com/TsutomuNakamura/items/a78514a61ede444bd074
+
+Redux はJavaScript アプリケーションのための状態管理コンテナです
+
+Redux を使うことにより安定して一貫性のある動作の実現とテストタブルなコードが作成でき、
+結果としてSPA に対する機能の追加を簡単にし、バグの発見もしやすくなります。
+
+今回の勉強ではRedux をReact と組み合わせて使っていきますが、
+Redux はReact とは切り離され提供されているためReact はもちろんのこと、React 以外のView ライブラリと組み合わせて使うこともできます。
+
+
+Redux の構造
+
+  One Store
+    Redux のStore の特徴として、flux とは異なり、1 つのStore のみ存在することです。
+    すべての状態データを一箇所で管理することになるのでシンプル性を維持することができます。
+    画面及びアプリケーションの初期化はStore から始まります。
+    またRedux のStore の重要な性質としてimmutable であり、
+    一度作成されてStore に格納されたデータは外からの手によって直接変更されることは無く、
+    データは常に新く生成されたデータを置き換える形で更新させます。
+
+  State
+    One Store の中に存在し、アプリケーションの様々な要素の状態です。
+    Redux においてはState を一つのJavaScript オブジェクト内に保管します。
+    例えば現在どのページが表示されているのか、どのアイテムが設定されているのか、
+    どのユーザで操作しているのかといったState を保持しています。
+      var initialState = initialState = {counter: 0};
+
+  View (Renderred state)
+    今回の勉強ではReact がそれに該当します
+
+  Presentational Components とContainer Components
+    React の領域に当たります。
+    今回はRedux の範疇からそれてしまうため、説明を割愛します。
+
+  Actions
+    アプリケーション状態が変更される時、Action が発動します。
+    Action の種類としては、ユーザのアクション、非同期アクション、スケジュールされたアクションなどがあります。
+    わかりやすい例としては画面にボタンを表示することで、ボタンが押されたタイミングでAction を発動する等です。
+
+  Store and Reducer
+    Actions は状態を直接変更することはありません。
+    Redux のstore がその役割を担います。
+    Store に対してAction データを送出するときはdispatch を行います。
+
+  state が変更されたら
+    state が変更されたら、直ちに画面の再レンダリングを行います。
+
+
+Redux は何の問題を解決するか
+
+  各React コンポーネントに必要なstate を正確に与えることにRedux は優れているのです。
+  Redux を使うことでstate を取得して管理するためのロジックをReact の外に出すことが可能になります。
+
+
+immutability なJavaScript
+
+  JavaScript ではこのようにimmutablity がデフォルトで無いのか、
+  ということについてはJavaScript が大きく分けて2 つのデータ型のみ持っていることに起因しています。
+
+  プリミティブ(primitive)型
+  参照(reference)型
+
+このようにプリミティブ型対しては単純な代入、
+参照型に対しては新しいObject または配列を作成する関数等を使用して変更してあげることで
+JavaScript でのimmutability は実現します。
+
+
+spread 演算子を使う方法
+https://qiita.com/TsutomuNakamura/items/a78514a61ede444bd074#spread-%E6%BC%94%E7%AE%97%E5%AD%90%E3%82%92%E4%BD%BF%E3%81%86%E6%96%B9%E6%B3%95
+
+
+
+※次はｒ７．

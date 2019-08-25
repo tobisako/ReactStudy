@@ -1,0 +1,60 @@
+今から始めるReact入門 〜 flux編
+https://qiita.com/TsutomuNakamura/items/cb3b6109fb21730cd73f
+
+Flux とはユーザインタフェースを構築するためのアプリケーションアーキテクチャです。
+
+  React はview レイヤのフレームワーク
+  React は状態管理についての手法を持ち合わせておリません。
+
+SPA(Single Page Application)
+
+flux とは、このようなSPA(Single Page Application) を実現するために状態管理の手法までを含めた、
+フレームワークでは無い、アプリケーションを開発するための設計パターンです。
+
+flux を採用することは、安定したアプリケーションを開発するのにとても有効な手法であり、
+またflux 自体はあくまで設計パターンなのでReact 以外のflux 思想ベースの他のフレームワークを使用するといった
+アプリケーション開発をするといった選択肢も取ることができます。
+
+
+state についてもう少し詳しくプログラミング言語観点で
+  SPA が出てき始めてからバックグラウンドはシンプルなREST API 等で建てられるようになってきてきました。
+  しかしその代わりにWeb ブラウザ側で現在の未読件数が何件なのか、状態を管理しておく要求が出てきました。
+  この要求に対応するための手法が、これから話していくflux の状態管理になります。
+
+
+Actions が発行するデータ
+
+  Dispatcher
+    Action から受け取った処理をDispatcher は複数の接続先、
+    例えばDB や他API サーバ等にアクセスして必要なデータを処理したり、計算処理をする役割を持っています。
+  Stores
+    Dispatcher が処理した結果を蓄え、View がレンダリングするためのデータを格納する役割を持っています。
+    Store に蓄えられたものはView にレンダリングされます。
+  View
+    View の役割はStores のデータを検知し、そのデータをレンダリングして表示すること
+
+
+npm install --save-dev @babel/core @babel/preset-env @babel/preset-react babel-loader babel-plugin-react-html-attrs babel-plugin-add-module-exports babel-plugin-transform-class-properties babel-plugin-transform-decorators-legacy
+npm install --save-dev react react-dom react-router react-router-dom webpack webpack-cli webpack-dev-server
+npm install --save-dev flux
+
+
+  コマンドラインためし。
+    todoStore.createTodo("Foo todo");
+      リストふえた。
+
+
+Actions の作成
+https://qiita.com/TsutomuNakamura/items/cb3b6109fb21730cd73f#actions-%E3%81%AE%E4%BD%9C%E6%88%90
+
+  これでflux 思想に沿ったTodo アプリケーションが完成しました。
+
+
+flux で非同期処理を扱う場合
+
+
+
+メモリリーク
+  イベントやリスナのunbind 忘れや失敗により使われないメモリがどんどん溜まっていき、
+  メモリリークが発生することがあります。
+

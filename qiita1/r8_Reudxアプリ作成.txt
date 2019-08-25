@@ -1,0 +1,86 @@
+今から始めるReact入門 〜 Redux 編: Redux アプリケーションを作成する
+https://qiita.com/TsutomuNakamura/items/ceaa2552bbbca1bac24e
+ラスト
+
+React + Redux でアプリを作成してみる
+
+npm install --save-dev @babel/core babel-loader @babel/plugin-proposal-decorators @babel/preset-env @babel/preset-react webpack webpack-cli webpack-dev-server react react-dom react-redux react-router react-router-dom redux redux-logger redux-promise-middleware redux-thunk axios
+
+
+これらreducer の注意点として、
+immutable を意識して、新しい値を設定する場合は常に新しいObject を生成して返すようにしてください。
+
+
+Redux を接続する
+
+  npm install --save-prod redux react-redux redux-thunk redux-logger redux-promise-middleware
+
+  Store とReact を結びつけるためにstore をimport してProvider コンポーネントのprops として定義を追加します。
+    import store from "./store";
+    <Provider store={store}>
+
+
+@connect((store) => {
+
+  これはdecolator というものです。
+
+  package.json のbabel-plugin-transform-decorators-legacy パッケージによって変換されるもので、
+  これを有効化するためにwebpack.config.js で以下のオプションも有効化することを忘れないようにしてください。
+      ...
+      use: [{
+        loader: 'babel-loader',
+        options: {
+          plugins: [
+            'react-html-attrs',
+            [require('@babel/plugin-proposal-decorators'), {legacy: true}]
+          ],
+          presets: ['@babel/preset-react', '@babel/preset-env']
+        }
+      }]
+      ...
+
+  このconnect decolator はReact とRedux Store を接続する役割を持っており、
+  引数にstate をprops と対応付ける関数と、dispatch をprops に対応付ける関数を指定することができます。
+
+
+ロード中のメッセージを表示する
+
+axios でリクエストを送信する前にdispatch({type: "FETCH_TWEETS"}); とdispatch しており、
+リクエストを送信する前から、リクエストの送信が完了するまでの間、
+一時的にstate を変更する処理が既に実装されていることがわかります。
+
+これを再利用して、ボタンを押してからダウンロードが完了するまでの間、
+Loading... というメッセージを表示させる処理を実装してみましょう。
+
+  +    tweetsFetching: store.tweetsReducer.fetching
+
+  +    const { user, tweets, tweetsFetching } = this.props;
+  +
+  +    if (tweetsFetching === true) {
+  +      return (<div>fetching...</div>);
+  +    }
+
+
+不足：
+
+npm install babel-plugin-react-html-attrs
+
+
+◆実行：
+
+別consoleでダミーサーバーを立てる事。
+
+$ node << EOF
+var http = require('http');
+http.createServer(function (req, res) {
+  res.writeHead(200, {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'});
+  setTimeout(() => res.end('[{"id": 0, "text": "My first tweet."}, {"id": 1, "text": "Good afternoon."}]'), 1000);
+}).listen(18080);
+EOF
+
+
+Redux は思想こそ簡単ではあるが、それを実現するためにあらゆる書き方、immutability などを考慮しないといけません。
+
+
+
+[EOF]
