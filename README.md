@@ -7,3 +7,6 @@
 qiitaを見ながら学習
 ## redux01
 React-redux/sagaで作ったサンプル
+
+# next.js
+next.jsフレームワークのメモ
