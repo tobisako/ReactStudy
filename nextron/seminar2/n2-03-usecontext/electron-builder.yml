@@ -1,0 +1,12 @@
+appId: minden.co.jp
+productName: usecontext
+copyright: r.tobisako
+directories:
+  output: dist
+  buildResources: resources
+files:
+  - from: .
+    filter:
+      - package.json
+      - app
+publish: null

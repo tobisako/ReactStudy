@@ -1,0 +1,12 @@
+appId: minden.co.jp
+productName: drag
+copyright: r.tobisako
+directories:
+  output: dist
+  buildResources: resources
+files:
+  - from: .
+    filter:
+      - package.json
+      - app
+publish: null
